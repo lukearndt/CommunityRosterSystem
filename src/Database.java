@@ -33,7 +33,7 @@ public class Database {
 		Connection connection = null;
 		Properties connectionProperties = new Properties();
 		connectionProperties.put("user", "mySQL-Database-Username");
-		// Placeholder for real username
+		// Placeholder for real user name
 		connectionProperties.put("password", "mySQL-Database-Password");
 		// Placeholder for password
 		connection = DriverManager.getConnection("mySQL-Database-URL",
