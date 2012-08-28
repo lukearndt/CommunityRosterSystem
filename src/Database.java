@@ -6,6 +6,10 @@ import java.util.Properties;
 /**
  * @author Luke Arndt & Deborah Harrington
  * @date 23 August 2012
+ * 
+ *       This class is intended to function on a static basis, accessible to the
+ *       other classes in the solution. It handles the actual connection object
+ *       for the database.
  */
 public class Database {
 
