@@ -33,16 +33,12 @@ public class Database {
 	 * @throws SQLException
 	 */
 	private static Connection createConnection() throws SQLException {
-		// Generate a new connection object
+		// Generate a new connection object 
 		Connection connection = null;
 		Properties connectionProperties = new Properties();
-		connectionProperties.put("user", "mySQL-Database-Username");
-		// Placeholder for real user name
-		connectionProperties.put("password", "mySQL-Database-Password");
-		// Placeholder for password
-		connection = DriverManager.getConnection("mySQL-Database-URL",
-				connectionProperties);
-
+		connectionProperties.put("user", "SystemUser");
+		connectionProperties.put("password", "lk7^t5$FbN3$");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/duty_roster", connectionProperties);
 		return connection;
 	}
 

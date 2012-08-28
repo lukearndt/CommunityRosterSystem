@@ -1,3 +1,5 @@
+import java.sql.SQLException;
+
 /**
  * 
  * @author Luke Arndt & Deborah Harrington
@@ -9,11 +11,10 @@
  */
 public class Spike2Stuff {
 
-	public void insert() {
+	public void insert() throws SQLException {
 		// TODO Auto-generated method stub
 		Database.getDatabaseConnection()
 				.prepareStatement("INSERT INTO member (id, name, address, phone_number) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE company_code=?, date=?, open=?, high=?, low=?, close=?, volume=?, adjusted_close=?");
-
 	}
 
 	public void update() {
