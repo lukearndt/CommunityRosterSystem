@@ -24,38 +24,34 @@ public class RosterSystem {
 			System.err.println("Error code: " + e.getErrorCode());
 		}
 		
+		ConsoleUserInteraction consoleUserInteraction = new ConsoleUserInteraction();
+		
 		int choice = 0;
 		
 		System.out.println("Connected!");
 		
+		// run the menu and get a menu choice from the user until they choose to exit the program
 		while (choice != 6) {
 			choice = menu();
 		
-
-		// Perform the Spike 2 activities.
-		// TODO: Refactor spike 2 functionality so that it's better integrated
-		// into the application
-		Spike2Stuff spike2Stuff = new Spike2Stuff();
-
-		try {
-			spike2Stuff.insert();
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			switch (choice) {
+			case 1: consoleUserInteraction.option1();
+			case 2: consoleUserInteraction.option2();
+			case 3: consoleUserInteraction.option3();
+			case 4: consoleUserInteraction.option4();
+			case 5: consoleUserInteraction.option5();
+			}
 		}
-		spike2Stuff.update();
-		spike2Stuff.delete();
-		spike2Stuff.select();
-		}
-		
 		System.out.println("Goodbye");
 	}
 	
 	public static int menu() {
 		BufferedReader myReader = new BufferedReader(new InputStreamReader(System.in));
 		int menuChoice = 0;
+		System.out.println("");
 		System.out.println("Choose from the following options: ");
 		System.out.println("1: Print a list of members");
-		System.out.println("2: Print Add a new member");
+		System.out.println("2: Add a new member");
 		System.out.println("3: Change details for a member");
 		System.out.println("4: Delete a member");
 		System.out.println("5: Find a member by name");
