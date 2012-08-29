@@ -28,18 +28,21 @@ public class RosterSystem {
 		
 		int choice = 0;
 		
-		System.out.println("Connected!");
-		
 		// run the menu and get a menu choice from the user until they choose to exit the program
 		while (choice != 6) {
 			choice = menu();
 		
 			switch (choice) {
 			case 1: consoleUserInteraction.option1();
+					break;
 			case 2: consoleUserInteraction.option2();
+					break;
 			case 3: consoleUserInteraction.option3();
+					break;
 			case 4: consoleUserInteraction.option4();
+					break;
 			case 5: consoleUserInteraction.option5();
+					break;
 			}
 		}
 		System.out.println("Goodbye");

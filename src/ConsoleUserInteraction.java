@@ -1,16 +1,19 @@
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * @author Luke Arndt & Deborah Harrington
  * @date 29 August 2012
  * 
+ * 
+ * 
  */
 
 public class ConsoleUserInteraction {
-	// Perform the Spike 2 activities.
-	// TODO: Refactor spike 2 functionality so that it's better integrated
-	// into the application
-	public Spike2Stuff spike2Stuff = new Spike2Stuff();
+	private Spike2Stuff spike2Stuff = new Spike2Stuff();
+	private BufferedReader myReader = new BufferedReader(new InputStreamReader(System.in));
 	
 	public void option1() {
 		ArrayList<Member> memberList = new ArrayList<Member>();
@@ -23,18 +26,69 @@ public class ConsoleUserInteraction {
 	}
 	
 	public void option2() {
-		spike2Stuff.insert();		
+		try {
+			System.out.print("Enter the new member's name: ");
+        	String name = myReader.readLine().trim();
+        	System.out.print("Enter the new member's street address (don't include suburb, state or postcode): ");
+        	String address = myReader.readLine().trim();
+        	System.out.print("Enter the Suburb: ");
+        	String suburb = myReader.readLine().trim();
+        	System.out.print("Enter the State: ");
+    		String state = myReader.readLine().trim();
+        	System.out.print("Enter the Postcode: ");
+    		String postCode = myReader.readLine().trim();
+    		System.out.print("Enter the new member's home phone: ");
+    		String homePhone = myReader.readLine().trim();
+    		System.out.print("Enter the new member's mobile phone: ");
+    		String mobilePhone = myReader.readLine().trim();
+    		spike2Stuff.insert(name, address, suburb, state, postCode, homePhone, mobilePhone);
+        } catch (IOException e) {
+        	System.out.println(e.getMessage());
+        }		
 	}
 
 	public void option3() {
-		spike2Stuff.update();		
+		try {
+			System.out.print("Enter the name of the member whose address you wish to update: ");
+        	String name = myReader.readLine().trim();
+        	System.out.print("Enter the new member's street address (don't include suburb, state or postcode): ");
+        	String address = myReader.readLine().trim();
+        	System.out.print("Enter the Suburb: ");
+        	String suburb = myReader.readLine().trim();
+        	System.out.print("Enter the State: ");
+    		String state = myReader.readLine().trim();
+        	System.out.print("Enter the Postcode: ");
+    		String postCode = myReader.readLine().trim();
+    		spike2Stuff.update(name, address, suburb, state, postCode);		
+        } catch (IOException e) {
+        	System.out.println(e.getMessage());
+        }
 	}
 	
 	public void option4() {
-		spike2Stuff.delete();
+		try {
+			System.out.print("Enter the name of the member you wish to delete: ");
+        	String name = myReader.readLine().trim();
+        	spike2Stuff.delete(name);
+        } catch (IOException e) {
+        	System.out.println(e.getMessage());
+        }		
 	}
-
+	
 	public void option5() {
-		spike2Stuff.select();
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		try {
+			System.out.print("Enter the name of the member you wish to view: ");
+        	String name = myReader.readLine().trim();
+        	memberList = spike2Stuff.select(name);
+        } catch (IOException e) {
+        	System.out.println(e.getMessage());
+        }		
+		
+		for (int i = 0; i<memberList.size(); i++) {
+			System.out.println(memberList.get(i).getName() + ", " + 
+								memberList.get(i).getAddress() + ", " + memberList.get(i).getSuburb() + " " + 
+								memberList.get(i).getState() + " " + memberList.get(i).getPostCode());
+		}
 	}
 }
