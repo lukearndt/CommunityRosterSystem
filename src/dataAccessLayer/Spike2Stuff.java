@@ -1,7 +1,11 @@
+package dataAccessLayer;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+
+import applicationLayer.Member;
+
 
 /**
  * 
