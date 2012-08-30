@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 /**
@@ -24,60 +21,30 @@ public class RosterSystem {
 			System.err.println("Error code: " + e.getErrorCode());
 		}
 		
+		try {
+			String command = args[0];
+		
 		ConsoleUserInteraction consoleUserInteraction = new ConsoleUserInteraction();
 		
-		int choice = 0;
-		
-		// run the menu and get a menu choice from the user until they choose to exit the program
-		while (choice != 6) {
-			choice = menu();
-		
-			switch (choice) {
-			case 1: consoleUserInteraction.option1();
-					break;
-			case 2: consoleUserInteraction.option2();
-					break;
-			case 3: consoleUserInteraction.option3();
-					break;
-			case 4: consoleUserInteraction.option4();
-					break;
-			case 5: consoleUserInteraction.option5();
-					break;
-			}
+		if (command.equals("insert")) {
+			consoleUserInteraction.performInsert();
+		} else if (command.equals("update")) {
+			consoleUserInteraction.performUpdate();
+		} else if (command.equals("delete")) {
+			consoleUserInteraction.performDelete();
+		} else if (command.equals("list")) {
+			consoleUserInteraction.getList();
+		} else if (command.equals("find")) {
+			consoleUserInteraction.performSelect();
+		} else {
+			System.out.println("You didn't enter a recognised command. The following are valid commands: " +
+					"insert, update, delete, list, find. Run the program again with a valid command");
 		}
-		System.out.println("Goodbye");
-	}
-	
-	public static int menu() {
-		BufferedReader myReader = new BufferedReader(new InputStreamReader(System.in));
-		int menuChoice = 0;
-		System.out.println("");
-		System.out.println("Choose from the following options: ");
-		System.out.println("1: Print a list of members");
-		System.out.println("2: Add a new member");
-		System.out.println("3: Change details for a member");
-		System.out.println("4: Delete a member");
-		System.out.println("5: Find a member by name");
-		System.out.println("6: Quit");
-		while (true) {
-            try {
-                try {
-                	menuChoice = Integer.parseInt(myReader.readLine().trim());
-                } catch (IOException e) {
-                	System.out.println(e.getMessage());
-                }
-                if (menuChoice < 1 || menuChoice > 6) {
-                    System.out.println("Input value must be a valid integer between "
-                            + 1 + " and " + 6 + ".");
-                } else {
-                    break;
-                }
-            } catch (NumberFormatException ex) {
-                System.out.println("Input value must be a valid integer between " + 1
-                        + " and " + 6 + ".");
-            }
-        }
-		return menuChoice;
-	}
+		
 
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("You did not specifiy a command for the program to carry out");
+			System.out.println(e.getMessage());
+		}
+	}
 }

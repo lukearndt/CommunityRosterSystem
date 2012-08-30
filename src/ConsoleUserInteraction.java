@@ -15,7 +15,7 @@ public class ConsoleUserInteraction {
 	private Spike2Stuff spike2Stuff = new Spike2Stuff();
 	private BufferedReader myReader = new BufferedReader(new InputStreamReader(System.in));
 	
-	public void option1() {
+	public void getList() {
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		memberList = spike2Stuff.list();
 		for (int i = 0; i<memberList.size(); i++) {
@@ -25,7 +25,7 @@ public class ConsoleUserInteraction {
 		}
 	}
 	
-	public void option2() {
+	public void performInsert() {
 		try {
 			System.out.print("Enter the new member's name: ");
         	String name = myReader.readLine().trim();
@@ -47,7 +47,7 @@ public class ConsoleUserInteraction {
         }		
 	}
 
-	public void option3() {
+	public void performUpdate() {
 		try {
 			System.out.print("Enter the name of the member whose address you wish to update: ");
         	String name = myReader.readLine().trim();
@@ -65,7 +65,7 @@ public class ConsoleUserInteraction {
         }
 	}
 	
-	public void option4() {
+	public void performDelete() {
 		try {
 			System.out.print("Enter the name of the member you wish to delete: ");
         	String name = myReader.readLine().trim();
@@ -75,7 +75,7 @@ public class ConsoleUserInteraction {
         }		
 	}
 	
-	public void option5() {
+	public void performSelect() {
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		try {
 			System.out.print("Enter the name of the member you wish to view: ");
