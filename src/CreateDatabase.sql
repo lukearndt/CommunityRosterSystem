@@ -24,3 +24,7 @@ CREATE TABLE IF NOT EXISTS ALLOCATION (
 	FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (ID),
 	FOREIGN KEY (DUTY_ID) REFERENCES DUTY (ID)
 );
+INSERT INTO member (id,name,address,phone_number) values (1,'derp','123 privett drive', '0412345678');
+INSERT INTO member (id,name,address,phone_number) values (2,'derpette','125 privett drive', '0412345679');
+INSERT INTO member (id,name,address,phone_number) values (3,'derpington','127 privett drive', '0412345677');
+INSERT INTO member (id,name,address,phone_number) values (4,'derpthemost','129 privett drive', '0412345676');
