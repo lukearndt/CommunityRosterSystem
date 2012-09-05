@@ -14,10 +14,9 @@ public class Spike3Stuff {
 	ResultSet myResultSet;
 
 	public Spike3Stuff() throws SQLException {
+		System.out.println("Once upon a time . . . ");
 		try {
 			myCachedRowSet = new CachedRowSetImpl();
-			// myStatement = Database.getDatabaseConnection().createStatement();
-			// myResultSet = myStatement.executeQuery("SELECT * from member");
 			myCachedRowSet.setCommand("SELECT * FROM member");
 			Database.getDatabaseConnection().setAutoCommit(false);
 			myCachedRowSet.execute(Database.getDatabaseConnection());
@@ -30,13 +29,7 @@ public class Spike3Stuff {
 				+ myCachedRowSet.getTableName() + "]");
 
 		// Display our current member data
-		while (myCachedRowSet.next()) {
-			System.out.println("Row number [" + myCachedRowSet.getRow()
-					+ "], id [" + myCachedRowSet.getInt("id") + "], name ["
-					+ myCachedRowSet.getString("name") + "], address ["
-					+ myCachedRowSet.getString("address") + "], phone number ["
-					+ myCachedRowSet.getString("phone_number") + "]");
-		}
+		printList();
 
 		Random myRandom = new Random();
 		// Insert a row
@@ -45,7 +38,11 @@ public class Spike3Stuff {
 		myCachedRowSet.updateString("name", "newest derp on the block");
 		myCachedRowSet.updateString("address",
 				(myRandom.nextInt() & 0x7FFFFFFF) + " privett drive");
-		myCachedRowSet.updateString("phone_number",
+		myCachedRowSet.updateString("suburb", "hogwarts");
+		myCachedRowSet.updateString("postcode", "23754");
+		myCachedRowSet.updateString("home_phone",
+				Integer.toString(myRandom.nextInt() & 0x7FFFFFFF));
+		myCachedRowSet.updateString("mobile_phone",
 				Integer.toString(myRandom.nextInt() & 0x7FFFFFFF));
 		try {
 			myCachedRowSet.insertRow();
@@ -56,15 +53,63 @@ public class Spike3Stuff {
 		myCachedRowSet.moveToCurrentRow();
 		myCachedRowSet.acceptChanges(Database.getDatabaseConnection());
 
-		System.out.println("Row inserted!");
-		// Display our current member data
+		System.out.println("");
+		System.out.println("After Insert: ");
+		printList();
+
+		String tempAddress = "";
+		// Update a record
+		myCachedRowSet.beforeFirst();
 		while (myCachedRowSet.next()) {
-			System.out.println("Row number [" + myCachedRowSet.getRow()
-					+ "], id [" + myCachedRowSet.getInt("id") + "], name ["
-					+ myCachedRowSet.getString("name") + "], address ["
-					+ myCachedRowSet.getString("address") + "], phone number ["
-					+ myCachedRowSet.getString("phone_number") + "]");
+			if (myCachedRowSet.getString("name").equals("newest derp on the block")) {
+				tempAddress = myCachedRowSet.getString("address");
+			}
 		}
+		myCachedRowSet.beforeFirst();
+		while (myCachedRowSet.next()) {
+			if (myCachedRowSet.getString("name").equals("Lauren Jones")) {
+				System.out.println("got here");
+				myCachedRowSet.updateString("name", "Lauren Derp on the block");
+				myCachedRowSet.updateString("address", tempAddress);
+				myCachedRowSet.updateString("suburb", "hogwarts");
+				myCachedRowSet.updateString("postcode", "23754");
+				try {
+					myCachedRowSet.updateRow();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		
+
+		// Move the cursor back to the current row
+		//myCachedRowSet.moveToCurrentRow();
+		myCachedRowSet.acceptChanges(Database.getDatabaseConnection());
+
+		System.out.println("");
+		System.out.println("After Update: ");
+		// Display our current member data
+		printList();
+		
+		myCachedRowSet.beforeFirst();
+		while (myCachedRowSet.next()) {
+			if (myCachedRowSet.getString("name").equals("newest derp on the block")) {
+				try { 
+					myCachedRowSet.deleteRow();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		System.out.println("");
+		System.out.println("After Delete: ");
+		// Display our current member data
+		printList();
+
+		System.out.println("The End!");
 
 		if (myStatement != null) {
 			myStatement.close();
@@ -74,6 +119,19 @@ public class Spike3Stuff {
 		}
 		if (myCachedRowSet != null) {
 			myCachedRowSet.close();
+		}
+	}
+
+	private void printList() throws SQLException {
+		myCachedRowSet.beforeFirst();
+		while (myCachedRowSet.next()) {
+			System.out.println("Row number [" + myCachedRowSet.getRow()
+					+ "], id [" + myCachedRowSet.getInt("id") + "], name ["
+					+ myCachedRowSet.getString("name") + "], address ["
+					+ myCachedRowSet.getString("address") + "], Suburb ["
+					+ myCachedRowSet.getString("Suburb") + "], postcode ["
+					+ myCachedRowSet.getString("postcode") + "], home phone ["
+					+ myCachedRowSet.getString("home_phone") + "]");
 		}
 	}
 }

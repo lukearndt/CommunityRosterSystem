@@ -1,11 +1,16 @@
 CREATE DATABASE IF NOT EXISTS DUTY_ROSTER;
 USE DUTY_ROSTER;
 
-CREATE TABLE IF NOT EXISTS MEMBER (
-	ID INT,
-	NAME VARCHAR(255),
-	ADDRESS VARCHAR(255),
-	PHONE_NUMBER VARCHAR(20),
+CREATE TABLE IF NOT EXISTS Member (
+	ID int NOT NULL AUTO_INCREMENT,
+	NAME varchar(30) NOT NULL,
+	ADDRESS varchar(50),
+	SUBURB varchar(30),
+	STATE varchar(20),
+	POSTCODE varchar(10),
+	SPOUSE_ID int,
+	HOME_PHONE varchar(20),
+	MOBILE_PHONE varchar(20),
 	PRIMARY KEY (ID)
 );
 
@@ -16,15 +21,21 @@ CREATE TABLE IF NOT EXISTS DUTY (
 	PRIMARY KEY (ID)
 );
 
-CREATE TABLE IF NOT EXISTS ALLOCATION (
+CREATE TABLE IF NOT EXISTS CAPABILITY (
 	MEMBER_ID INT,
 	DUTY_ID INT,
-	ALLOCATION_START_DATETIME DATETIME,
-	ALLOCATION_END_DATETIME DATETIME,
 	FOREIGN KEY (MEMBER_ID) REFERENCES MEMBER (ID),
 	FOREIGN KEY (DUTY_ID) REFERENCES DUTY (ID)
 );
-INSERT INTO member (id,name,address,phone_number) values (1,'derp','123 privett drive', '0412345678');
-INSERT INTO member (id,name,address,phone_number) values (2,'derpette','125 privett drive', '0412345679');
-INSERT INTO member (id,name,address,phone_number) values (3,'derpington','127 privett drive', '0412345677');
-INSERT INTO member (id,name,address,phone_number) values (4,'derpthemost','129 privett drive', '0412345676');
+
+INSERT INTO MEMBER (ID, NAME, ADDRESS, SUBURB, STATE, POSTCODE, SPOUSE_ID, HOME_PHONE, MOBILE_PHONE) VALUES (1, "Bob Smith", "21 Test Way", "TestVille", "VIC", "3689", 2, "03 5776 3454", "0436 655 354");
+INSERT INTO MEMBER (ID, NAME, ADDRESS, SUBURB, STATE, POSTCODE, SPOUSE_ID, HOME_PHONE, MOBILE_PHONE) VALUES (2, "Mary Smith", "21 Test Way", "TestVille", "VIC", "3689", 1, "03 5776 3454", "0454 646 756");
+INSERT INTO MEMBER (ID, NAME, ADDRESS, SUBURB, STATE, POSTCODE, SPOUSE_ID, HOME_PHONE, MOBILE_PHONE) VALUES (3, "Lauren Jones", "34 Handy Place", "Horrortown", "VIC", "3267", null,"03 9765 3456", "0426 456 467");
+
+INSERT INTO DUTY (ID, NAME, DESCRIPTION) VALUES (1, "Chairman", "The person who runs the meeting");
+INSERT INTO DUTY (ID, NAME, DESCRIPTION) VALUES (2, "Reader", "The person allocated to read the chosen portion of scripture");
+INSERT INTO DUTY (ID, NAME, DESCRIPTION) VALUES (3, "Pianist", "The person allocated to play the piano to accompany the congregation");
+
+INSERT INTO CAPABILITY (MEMBER_ID, DUTY_ID) VALUES (1, 1);
+INSERT INTO CAPABILITY (MEMBER_ID, DUTY_ID) VALUES (1, 2);
+INSERT INTO CAPABILITY (MEMBER_ID, DUTY_ID) VALUES (3, 3);
