@@ -34,7 +34,7 @@ public class Spike3Stuff {
 		Random myRandom = new Random();
 		// Insert a row
 		myCachedRowSet.moveToInsertRow();
-		myCachedRowSet.updateInt("id", myRandom.nextInt() & 0x7FFFFFFF);
+		myCachedRowSet.updateInt("id", 0);
 		myCachedRowSet.updateString("name", "newest derp on the block");
 		myCachedRowSet.updateString("address",
 				(myRandom.nextInt() & 0x7FFFFFFF) + " privett drive");
@@ -99,6 +99,9 @@ public class Spike3Stuff {
 				}
 			}
 		}
+		
+		myCachedRowSet.moveToCurrentRow();
+		myCachedRowSet.acceptChanges(Database.getDatabaseConnection());
 		
 		System.out.println("");
 		System.out.println("After Delete: ");
