@@ -68,7 +68,6 @@ public class Spike3Stuff {
 		myCachedRowSet.beforeFirst();
 		while (myCachedRowSet.next()) {
 			if (myCachedRowSet.getString("name").equals("Lauren Jones")) {
-				System.out.println("got here");
 				myCachedRowSet.updateString("name", "Lauren Derp on the block");
 				myCachedRowSet.updateString("address", tempAddress);
 				myCachedRowSet.updateString("suburb", "hogwarts");
@@ -81,11 +80,8 @@ public class Spike3Stuff {
 			}
 		}
 		
-		
-		
-
 		// Move the cursor back to the current row
-		//myCachedRowSet.moveToCurrentRow();
+		myCachedRowSet.moveToCurrentRow();
 		myCachedRowSet.acceptChanges(Database.getDatabaseConnection());
 
 		System.out.println("");
