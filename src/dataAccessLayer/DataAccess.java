@@ -6,6 +6,15 @@ package dataAccessLayer;
  */
 public interface DataAccess {
 
+	
+	// Transactions
+
+	public void startTransaction();
+
+	public void commitTransaction();
+
+	public void rollbackTransaction();
+	
 	// Getters for Member
 
 	public Member getMemberById(int memberId);
@@ -19,5 +28,6 @@ public interface DataAccess {
 	public void saveMember(Member member);
 
 	public void addMember(Member member);
-	
+
+
 }
