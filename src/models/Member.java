@@ -1,4 +1,4 @@
-package persistanceLayer;
+package models;
 
 import org.javalite.activejdbc.Model;
 
