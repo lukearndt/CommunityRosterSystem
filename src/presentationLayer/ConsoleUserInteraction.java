@@ -5,9 +5,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import dataAccessLayer.Member;
 import dataAccessLayer.Spike2Stuff;
 
-import applicationLayer.Member;
 
 
 /**

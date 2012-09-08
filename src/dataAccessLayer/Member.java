@@ -1,4 +1,5 @@
-package applicationLayer;
+package dataAccessLayer;
+
 public class Member {
 	private int ID;
 	private String name;
@@ -10,7 +11,9 @@ public class Member {
 	private String homePhone;
 	private String mobilePhone;
 
-	public Member (int aID, String aName, String aAddress, String aSuburb, String aState, String aPostCode, int aSpouseID, String aHomePhone, String aMobilePhone) {
+	public Member(int aID, String aName, String aAddress, String aSuburb,
+			String aState, String aPostCode, int aSpouseID, String aHomePhone,
+			String aMobilePhone) {
 		ID = aID;
 		name = aName;
 		address = aAddress;
