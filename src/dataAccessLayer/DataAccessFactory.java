@@ -8,8 +8,8 @@ public abstract class DataAccessFactory {
 
 	private static final String DATA_ACCESS_MODE = "ActiveJdbc";
 
-	public static DataAccess getDataAccess() {
-		DataAccess dataManager = null;
+	public static IDataAccess getDataAccess() {
+		IDataAccess dataManager = null;
 
 		if (DATA_ACCESS_MODE.equals("ActiveJdbc")) {
 

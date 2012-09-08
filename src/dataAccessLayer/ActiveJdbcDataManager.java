@@ -3,13 +3,15 @@
  */
 package dataAccessLayer;
 
+import java.util.List;
+
 import org.javalite.activejdbc.Base;
 
 /**
  * @author Luke Arndt & Deborah Harrington
  * 
  */
-public class ActiveJdbcDataManager implements DataAccess {
+public class ActiveJdbcDataManager implements IDataAccess {
 
 	private static final String PASSWORD = "lk7^t5$FbN3$";
 	private static final String USER_NAME = "SystemUser";
@@ -17,10 +19,20 @@ public class ActiveJdbcDataManager implements DataAccess {
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3307/duty_roster";
 
 	protected ActiveJdbcDataManager() {
-		Base.open(DATABASE_DRIVER, DATABASE_URL, USER_NAME, PASSWORD);
-		
-		// TODO : Figure out where to close this connection as Java doesn't let me make a destructor method
+
 	}
+
+	// Procedure for closing connection
+	private void close() {
+		Base.close();
+	}
+
+	// Procedure for opening connection
+	private void open() {
+		Base.open(DATABASE_DRIVER, DATABASE_URL, USER_NAME, PASSWORD);
+	}
+
+	// IDataAccess interface methods
 
 	@Override
 	public void startTransaction() {
@@ -37,26 +49,21 @@ public class ActiveJdbcDataManager implements DataAccess {
 		Base.rollbackTransaction();
 	}
 
-	
-	
 	// Not yet implemented methods are below this line
-	
+
 	@Override
 	public Member getMemberById(int memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		return Member.findById(memberId);
 	}
 
 	@Override
-	public Member getMemberByName(String memberName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Member> getMembersByName(String memberName) {
+		return Member.where("name = ?", memberName);
 	}
 
 	@Override
 	public Member getMemberBySpouse(int spouseId) {
-		// TODO Auto-generated method stub
-		return null;
+		return Member.findFirst("spouse_id = ?", spouseId);
 	}
 
 	@Override
