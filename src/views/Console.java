@@ -8,6 +8,6 @@ package views;
  * 
  */
 
-public class ConsoleUserInteraction {
+public class Console {
 
 }
