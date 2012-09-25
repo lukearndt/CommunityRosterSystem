@@ -1,14 +1,11 @@
 package controllers;
 
+import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
-
 import models.Capabilities;
 import models.Duty;
 import models.Member;
-
-import org.javalite.activejdbc.Base;
-import org.javalite.activejdbc.LazyList;
+import net.java.ao.EntityManager;
 
 import views.Console;
 
@@ -18,16 +15,16 @@ import views.Console;
  * 
  */
 public class RosterSystem {
+	static EntityManager manager;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Base.open(DbDetails.DATABASE_DRIVER, DbDetails.DATABASE_URL,
+		manager = new EntityManager(DbDetails.DATABASE_URL,
 				DbDetails.USER_NAME, DbDetails.PASSWORD);
 		// Start up the console
 		Console myConsole = new Console();
-		Base.close();
 	}
 
 	/**
@@ -35,97 +32,194 @@ public class RosterSystem {
 	 * @param memberInformation
 	 */
 	public static void addMember(HashMap<String, Object> memberInformation) {
-		Member newMember = new Member();
-		for (Map.Entry<String, Object> entry : memberInformation.entrySet()) {
-			// key = field name
-			newMember.set(entry.getKey(), entry.getValue());
+		Member newMember;
+		try {
+			newMember = manager.create(Member.class);
+			newMember.setName(memberInformation.get("Name").toString());
+			newMember.setAddress(memberInformation.get("address").toString());
+			newMember.setSuburb(memberInformation.get("suburb").toString());
+			newMember.setState(memberInformation.get("state").toString());
+			newMember.setPostCode(memberInformation.get("postcode").toString());
+			newMember.setHome_Phone(memberInformation.get("homePhone")
+					.toString());
+			newMember.setMobile_Phone(memberInformation.get("mobilePhone")
+					.toString());
+			newMember.save();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		newMember.saveIt();
 	}
 
 	public static void updateMember(String name,
 			HashMap<String, Object> memberInformation) {
-		Member member = findMemberByName(name);
-		for (Map.Entry<String, Object> entry : memberInformation.entrySet()) {
-			member.set(entry.getKey(), entry.getValue());
+		Member[] member;
+		try {
+			member = manager.find(Member.class, "name = ?", name);
+			for (int i = 0; i < member.length; i++) {
+				member[i].setName(memberInformation.get("Name").toString());
+				member[i].setAddress(memberInformation.get("address")
+						.toString());
+				member[i].setSuburb(memberInformation.get("suburb").toString());
+				member[i].setState(memberInformation.get("state").toString());
+				member[i].setPostCode(memberInformation.get("postcode")
+						.toString());
+				member[i].setHome_Phone(memberInformation.get("homePhone")
+						.toString());
+				member[i].setMobile_Phone(memberInformation.get("mobilePhone")
+						.toString());
+				member[i].save();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	public static void deleteMember(String memberToDelete) {
-		Member member = findMemberByName(memberToDelete);
-		member.delete();
+		Member[] member;
+		try {
+			member = manager.find(Member.class, "name = ?", memberToDelete);
+			for (int i = 0; i < member.length; i++) {
+				manager.delete(member[i]);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public static Member findMemberByName(String name) {
-		Member member = Member.findFirst("name = ?", name);
-		return member;
-	}
-
-	public static LazyList<Member> getMemberList() {
-		return Member.findAll();
+	public static Member[] getMemberList() {
+		Member[] memberList = null;
+		try {
+			memberList = manager.find(Member.class);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return memberList;
 	}
 
 	public static void addDuty(HashMap<String, Object> dutyInformation) {
-		Duty newDuty = new Duty();
-		for (Map.Entry<String, Object> entry : dutyInformation.entrySet()) {
-			// key = field name
-			newDuty.set(entry.getKey(), entry.getValue());
+		Duty newDuty;
+		try {
+			newDuty = manager.create(Duty.class);
+			newDuty.setName(dutyInformation.get("Name").toString());
+			newDuty.setDescription(dutyInformation.get("description")
+					.toString());
+			newDuty.save();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		newDuty.saveIt();
 	}
 
 	public static void updateDuty(String name,
 			HashMap<String, Object> dutyInformation) {
-		Duty duty = findDutyByName(name);
-		for (Map.Entry<String, Object> entry : dutyInformation.entrySet()) {
-			duty.set(entry.getKey(), entry.getValue());
+		Duty[] duty = null;
+		try {
+			duty = manager.find(Duty.class, "name = ?", name);
+			for (int i = 0; i < duty.length; i++) {
+				duty[i].setName(dutyInformation.get("Name").toString());
+				duty[i].setDescription(dutyInformation.get("description")
+						.toString());
+				duty[i].save();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	public static void deleteDuty(String dutyToDelete) {
-		Duty duty = findDutyByName(dutyToDelete);
-		duty.delete();
+		// Duty duty = findDutyByName(dutyToDelete);
+		// duty.delete();
+
+		Duty[] duty;
+		try {
+			duty = manager.find(Duty.class, "name = ?", dutyToDelete);
+			for (int i = 0; i < duty.length; i++) {
+				manager.delete(duty[i]);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public static Duty findDutyByName(String name) {
-		Duty duty = Duty.findFirst("name = ?", name);
-		;
-		return duty;
-	}
-
-	public static LazyList<Duty> getDutyList() {
-		return Duty.findAll();
+	public static Duty[] getDutyList() {
+		Duty[] dutyList = null;
+		try {
+			dutyList = manager.find(Duty.class);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dutyList;
 	}
 
 	public static void addCapability(
 			HashMap<String, Object> capabilityInformation) {
-		Member member = findMemberByName(capabilityInformation
-				.get("memberName").toString());
-		Duty duty = findDutyByName(capabilityInformation.get("dutyName")
-				.toString());
-
-		member.add(duty);
+		Capabilities capability = null;
+		Member[] member = null;
+		Duty[] duty = null;
+		try {
+			capability = manager.create(Capabilities.class);
+			member = manager.find(Member.class, "name = ?",
+					capabilityInformation.get("memberName"));
+			duty = manager.find(Duty.class, "name = ?",
+					capabilityInformation.get("dutyName"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		capability.setDuty_ID(duty[0].getID());
+		capability.setMember_ID(member[0].getID());
+		capability.save();
 	}
 
-	public static LazyList<Capabilities> findMemberCapabilities(String memberName) {
-		Member member = findMemberByName(memberName);
-		LazyList<Capabilities> capability = Capabilities.find("Member_ID", member.getId());
+	public static Capabilities[] findMemberCapabilities(
+			String memberName) {
+		Member[] member = null;
+		Capabilities[] capability = null;
+		try {
+			member = manager.find(Member.class, "name = ?", memberName);
+			capability = manager.find(Capabilities.class, "Member_ID = ?", member[0].getID());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return capability;
 	}
 
 	public static void deleteCapability(
 			HashMap<String, Object> capabilityInformation) {
-		Member member = findMemberByName(capabilityInformation
-				.get("memberName").toString());
-		Duty duty = findDutyByName(capabilityInformation.get("dutyName")
-				.toString());
-
-		member.remove(duty);
+		Member[] member = null;
+		Duty[] duty = null;
+		Capabilities[] capability = null;
+		try {
+			member = manager.find(Member.class, "name = ?",
+					capabilityInformation.get("memberName"));
+			duty = manager.find(Duty.class, "name = ?",
+					capabilityInformation.get("dutyName"));
+			capability = manager.find(Capabilities.class, "Member_ID = ? and Duty_ID = ?", member[0].getID(), duty[0].getID());
+			manager.delete(capability);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public static LazyList<Capabilities> findDutyCapabilities(String dutyName) {
-		Duty duty = findDutyByName(dutyName);
-		LazyList<Capabilities> capability = Capabilities.find("Duty_ID", duty.getId());
+	public static Capabilities[] findDutyCapabilities(String dutyName) {
+		Duty[] duty = null;
+		Capabilities[] capability = null;
+		try {
+			duty = manager.find(Duty.class, "name = ?", dutyName);
+			capability = manager.find(Capabilities.class, "Duty_ID = ?", duty[0].getID());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return capability;
 	}
 }

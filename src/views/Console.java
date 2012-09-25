@@ -2,32 +2,25 @@ package views;
 
 import java.util.HashMap;
 
-
 import models.Capabilities;
 import models.Duty;
 import models.Member;
 
-import org.javalite.activejdbc.LazyList;
-
 import controllers.RosterSystem;
-
-
 
 /**
  * @author Luke Arndt & Deborah Harrington
  * @date 20 September 2012
  * 
  * 
- *
+ * 
  */
 
-public class Console
-{
-	public Console()
-	{
+public class Console {
+	public Console() {
 		processMainMenu(presentMainMenu());
 	}
-	
+
 	private int presentMainMenu() {
 		IO.say("---------------------------------------------");
 		IO.say("| Main Menu                                 |");
@@ -42,22 +35,24 @@ public class Console
 	}
 
 	private void processMainMenu(int mainMenuResponse) {
-		switch (mainMenuResponse)
-		{
+		switch (mainMenuResponse) {
 		case 1:
 			processMemberManagementMenu(presentMemberManagementMenu());
+			break;
 		case 2:
 			processDutyManagementMenu(presentDutyManagementMenu());
+			break;
 		case 3:
 			processCapabilityManagementMenu(presentCapabilityManagementMenu());
+			break;
 		case 4:
 			System.exit(0);
+			break;
 		}
-		
+
 	}
-	
-	protected int presentMemberManagementMenu()
-	{
+
+	protected int presentMemberManagementMenu() {
 		IO.say("-------------------------------------------");
 		IO.say("| Member Management Menu                  |");
 		IO.say("-------------------------------------------");
@@ -72,26 +67,35 @@ public class Console
 		return IO.getInt(
 				"Please make a selection from one of the above options", 1, 6);
 	}
-	
-	private void processMemberManagementMenu(int memberMenuResponse)
-	{
-		switch (memberMenuResponse)
-		{
+
+	private void processMemberManagementMenu(int memberMenuResponse) {
+		switch (memberMenuResponse) {
 		case 1:
 			RosterSystem.addMember(presentAddMemberQuery());
+			presentMemberManagementMenu();
 		case 2:
-			RosterSystem.updateMember(IO.getString("Enter the name of the member you wish to update: ",  false,  true), presentUpdateMemberQuery());
+			RosterSystem.updateMember(IO.getString(
+					"Enter the name of the member you wish to update: ", false,
+					true), presentUpdateMemberQuery());
+			presentMemberManagementMenu();
 		case 3:
 			RosterSystem.deleteMember(presentMemberToDeleteQuery());
+			presentMemberManagementMenu();
 		case 4:
 			printMemberList(RosterSystem.getMemberList());
+			presentMemberManagementMenu();
 		case 5:
-			printCapabilities(RosterSystem.findMemberCapabilities(IO.getString("Enter the name of the member for whom you wish to view capabilities: ", false, true)));
+			printCapabilities(RosterSystem
+					.findMemberCapabilities(IO
+							.getString(
+									"Enter the name of the member for whom you wish to view capabilities: ",
+									false, true)));
+			presentMemberManagementMenu();
 		case 6:
 			processMainMenu(presentMainMenu());
 		}
 	}
-	
+
 	private int presentCapabilityManagementMenu() {
 		IO.say("-------------------------------------------");
 		IO.say("| Capability Management Menu              |");
@@ -105,20 +109,21 @@ public class Console
 				"Please make a selection from one of the above options", 1, 3);
 	}
 
-	private void processCapabilityManagementMenu(
-			int capabilityMenuResponse) {
-		switch (capabilityMenuResponse)
-		{
+	private void processCapabilityManagementMenu(int capabilityMenuResponse) {
+		switch (capabilityMenuResponse) {
 		case 1:
-			// add an existing duty to an existing member - ask the user for duty name and member name
+			// add an existing duty to an existing member - ask the user for
+			// duty name and member name
 			RosterSystem.addCapability(getCapabilityInformation());
+			presentCapabilityManagementMenu();
 		case 2:
 			// delete capability - ask the user for duty name and member name
 			RosterSystem.deleteCapability(getCapabilityInformation());
+			presentCapabilityManagementMenu();
 		case 3:
 			processMainMenu(presentMainMenu());
 		}
-		
+
 	}
 
 	private int presentDutyManagementMenu() {
@@ -138,18 +143,28 @@ public class Console
 	}
 
 	private void processDutyManagementMenu(int dutyMenuResponse) {
-		switch (dutyMenuResponse)
-		{
+		switch (dutyMenuResponse) {
 		case 1:
 			RosterSystem.addDuty(presentAddDutyQuery());
+			presentDutyManagementMenu();
 		case 2:
-			RosterSystem.updateDuty(IO.getString("Enter the name of the duty you wish to update: ",  false,  true), presentUpdateDutyQuery());
+			RosterSystem.updateDuty(IO.getString(
+					"Enter the name of the duty you wish to update: ", false,
+					true), presentUpdateDutyQuery());
+			presentDutyManagementMenu();
 		case 3:
 			RosterSystem.deleteDuty(presentDutyToDeleteQuery());
+			presentDutyManagementMenu();
 		case 4:
 			printDutyList(RosterSystem.getDutyList());
+			presentDutyManagementMenu();
 		case 5:
-			printCapabilities(RosterSystem.findDutyCapabilities(IO.getString("Enter the name of the duty for which you wish to view capabilities", false, true)));
+			printCapabilities(RosterSystem
+					.findDutyCapabilities(IO
+							.getString(
+									"Enter the name of the duty for which you wish to view capabilities",
+									false, true)));
+			presentDutyManagementMenu();
 		case 6:
 			processMainMenu(presentMainMenu());
 		}
@@ -162,21 +177,33 @@ public class Console
 
 		HashMap<String, Object> memberInformation = new HashMap<String, Object>();
 
-		memberInformation.put("name",IO.getString("Please enter a new value for Name", false, true));
-		memberInformation.put("address",IO.getString("Please enter a new value for Address", false, false));
-		memberInformation.put("suburb",IO.getString("Please enter a new value for Suburb", false, false));
-		memberInformation.put("state",IO.getString("Please enter a new value for State", false, false));
-		memberInformation.put("postcode",IO.getString("Please enter a new value for Postcode", false, false));
-		memberInformation.put("homePhone",IO.getString("Please enter a new value for Home Phone", false, false));
-		memberInformation.put("mobilePhone",IO.getString("Please enter a new value for Mobile Phone", false, false));
-		memberInformation.put("spouseName",IO.getString("Please enter a new value for Spouse Name", false, false));
+		memberInformation.put("name",
+				IO.getString("Please enter a new value for Name", false, true));
+		memberInformation.put("address", IO.getString(
+				"Please enter a new value for Address", false, false));
+		memberInformation.put("suburb", IO.getString(
+				"Please enter a new value for Suburb", false, false));
+		memberInformation.put("state", IO.getString(
+				"Please enter a new value for State", false, false));
+		memberInformation.put("postcode", IO.getString(
+				"Please enter a new value for Postcode", false, false));
+		memberInformation.put("homePhone", IO.getString(
+				"Please enter a new value for Home Phone", false, false));
+		memberInformation.put("mobilePhone", IO.getString(
+				"Please enter a new value for Mobile Phone", false, false));
+		memberInformation.put("spouseName", IO.getString(
+				"Please enter a new value for Spouse Name", false, false));
 
 		return memberInformation;
 	}
 
-	private void printMemberList(LazyList<Member> memberList) {
-		for (int i = 0; i < memberList.size(); i++) { 
-			System.out.println(memberList.get(i).toString());
+	private void printMemberList(Member[] memberList) {
+		for (int i = 0; i < memberList.length; i++) {
+			System.out.println(memberList[i].getName() + ", "
+					+ memberList[i].getAddress() + ", "
+					+ memberList[i].getSuburb() + " "
+					+ memberList[i].getState() + " "
+					+ memberList[i].getPostCode());
 		}
 	}
 
@@ -184,11 +211,12 @@ public class Console
 		IO.say("-------------------------------------------");
 		IO.say("| Delete Member                           |");
 		IO.say("-------------------------------------------");
-		return IO.getString("Please enter the name of the member that you wish to delete", false, true);
+		return IO.getString(
+				"Please enter the name of the member that you wish to delete",
+				false, true);
 	}
 
-	private HashMap<String, Object> presentAddMemberQuery()
-	{
+	private HashMap<String, Object> presentAddMemberQuery() {
 		IO.say("-------------------------------------------");
 		IO.say("| Add Member                              |");
 		IO.say("-------------------------------------------");
@@ -207,29 +235,40 @@ public class Console
 
 		HashMap<String, Object> memberInformation = new HashMap<String, Object>();
 
-		memberInformation.put("name",IO.getString("Please enter a value for Name", false, true));
-		memberInformation.put("address",IO.getString("Please enter a value for Address", false, false));
-		memberInformation.put("suburb",IO.getString("Please enter a value for Suburb", false, false));
-		memberInformation.put("state",IO.getString("Please enter a value for State", false, false));
-		memberInformation.put("postcode",IO.getString("Please enter a value for Postcode", false, false));
-		memberInformation.put("homePhone",IO.getString("Please enter a value for Home Phone", false, false));
-		memberInformation.put("mobilePhone",IO.getString("Please enter a value for Mobile Phone", false, false));
-		memberInformation.put("spouseName",IO.getString("Please enter a value for Spouse Name", false, false));
+		memberInformation.put("name",
+				IO.getString("Please enter a value for Name", false, true));
+		memberInformation.put("address",
+				IO.getString("Please enter a value for Address", false, false));
+		memberInformation.put("suburb",
+				IO.getString("Please enter a value for Suburb", false, false));
+		memberInformation.put("state",
+				IO.getString("Please enter a value for State", false, false));
+		memberInformation
+				.put("postcode", IO.getString(
+						"Please enter a value for Postcode", false, false));
+		memberInformation.put("homePhone", IO.getString(
+				"Please enter a value for Home Phone", false, false));
+		memberInformation.put("mobilePhone", IO.getString(
+				"Please enter a value for Mobile Phone", false, false));
+		memberInformation.put("spouseName", IO.getString(
+				"Please enter a value for Spouse Name", false, false));
 
 		return memberInformation;
 	}
-	
-	private void printDutyList(LazyList<Duty> dutyList) {
-		for (int i = 0; i < dutyList.size(); i++) { 
-			System.out.println(dutyList.get(i).toString());
-		}		
+
+	private void printDutyList(Duty[] dutyList) {
+		for (int i = 0; i < dutyList.length; i++) {
+			System.out.println(dutyList[i].toString());
+		}
 	}
 
 	private String presentDutyToDeleteQuery() {
 		IO.say("-------------------------------------------");
 		IO.say("| Delete Duty                             |");
 		IO.say("-------------------------------------------");
-		return IO.getString("Please enter the name of the duty that you wish to delete", false, true);
+		return IO.getString(
+				"Please enter the name of the duty that you wish to delete",
+				false, true);
 	}
 
 	private HashMap<String, Object> presentUpdateDutyQuery() {
@@ -239,9 +278,11 @@ public class Console
 
 		HashMap<String, Object> dutyInformation = new HashMap<String, Object>();
 
-		dutyInformation.put("name",IO.getString("Please enter a new value for Name", false, true));
-		dutyInformation.put("description",IO.getString("Please enter a new value for Description", false, false));
-		
+		dutyInformation.put("name",
+				IO.getString("Please enter a new value for Name", false, true));
+		dutyInformation.put("description", IO.getString(
+				"Please enter a new value for Description", false, false));
+
 		return dutyInformation;
 	}
 
@@ -258,24 +299,28 @@ public class Console
 
 		HashMap<String, Object> dutyInformation = new HashMap<String, Object>();
 
-		dutyInformation.put("name",IO.getString("Please enter a value for Name", false, true));
-		dutyInformation.put("description",IO.getString("Please enter a value for Description", false, false));
+		dutyInformation.put("name",
+				IO.getString("Please enter a value for Name", false, true));
+		dutyInformation.put("description", IO.getString(
+				"Please enter a value for Description", false, false));
 
 		return dutyInformation;
 	}
-	
+
 	private HashMap<String, Object> getCapabilityInformation() {
 		HashMap<String, Object> capabilityInformation = new HashMap<String, Object>();
 
-		capabilityInformation.put("memberName",IO.getString("Please enter the member name", false, true));
-		capabilityInformation.put("dutyName",IO.getString("Please enter the duty name", false, false));
-		
-		return capabilityInformation;		
+		capabilityInformation.put("memberName",
+				IO.getString("Please enter the member name", false, true));
+		capabilityInformation.put("dutyName",
+				IO.getString("Please enter the duty name", false, false));
+
+		return capabilityInformation;
 	}
-	
-	private void printCapabilities(LazyList<Capabilities> capabilities) {
-		for (int i = 0; i < capabilities.size(); i++) { 
-			System.out.println(capabilities.get(i).toString());
+
+	private void printCapabilities(Capabilities[] capabilities) {
+		for (int i = 0; i < capabilities.length; i++) {
+			System.out.println(capabilities[i].toString());
 		}
 	}
 }

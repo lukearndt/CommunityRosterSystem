@@ -1,11 +1,20 @@
 package models;
 
-import org.javalite.activejdbc.Model;
+import net.java.ao.Entity;
+import net.java.ao.OneToMany;
 
 /**
  * @author Luke Arndt & Deborah Harrington
  *
  */
-public class Duty extends Model {
-
+public interface Duty extends Entity {
+	
+	public String getName();
+	public void setName(String name);
+	
+	public String getDescription();
+	public void setDescription(String description);
+	
+	@OneToMany
+	public Capabilities[] getCapabilities();
 }
