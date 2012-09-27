@@ -16,5 +16,5 @@ public interface Duty extends Entity {
 	public void setDescription(String description);
 	
 	@OneToMany
-	public Capabilities[] getCapabilities();
+	public Capability[] getCapabilities();
 }

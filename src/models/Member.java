@@ -34,5 +34,5 @@ public interface Member extends Entity {
 	public void setMobile_Phone(String mobile_Phone);
 	
 	@OneToMany
-	public Capabilities[] getCapabilities();
+	public Capability[] getCapabilities();
 }

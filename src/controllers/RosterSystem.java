@@ -2,7 +2,7 @@ package controllers;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import models.Capabilities;
+import models.Capability;
 import models.Duty;
 import models.Member;
 import net.java.ao.EntityManager;
@@ -34,16 +34,7 @@ public class RosterSystem {
 	public static void addMember(HashMap<String, Object> memberInformation) {
 		Member newMember;
 		try {
-			newMember = manager.create(Member.class);
-			newMember.setName(memberInformation.get("Name").toString());
-			newMember.setAddress(memberInformation.get("address").toString());
-			newMember.setSuburb(memberInformation.get("suburb").toString());
-			newMember.setState(memberInformation.get("state").toString());
-			newMember.setPostCode(memberInformation.get("postcode").toString());
-			newMember.setHome_Phone(memberInformation.get("homePhone")
-					.toString());
-			newMember.setMobile_Phone(memberInformation.get("mobilePhone")
-					.toString());
+			newMember = manager.create(Member.class, memberInformation);
 			newMember.save();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -64,9 +55,9 @@ public class RosterSystem {
 				member[i].setState(memberInformation.get("state").toString());
 				member[i].setPostCode(memberInformation.get("postcode")
 						.toString());
-				member[i].setHome_Phone(memberInformation.get("homePhone")
+				member[i].setHome_Phone(memberInformation.get("home_Phone")
 						.toString());
-				member[i].setMobile_Phone(memberInformation.get("mobilePhone")
+				member[i].setMobile_Phone(memberInformation.get("mobile_Phone")
 						.toString());
 				member[i].save();
 			}
@@ -103,10 +94,7 @@ public class RosterSystem {
 	public static void addDuty(HashMap<String, Object> dutyInformation) {
 		Duty newDuty;
 		try {
-			newDuty = manager.create(Duty.class);
-			newDuty.setName(dutyInformation.get("Name").toString());
-			newDuty.setDescription(dutyInformation.get("description")
-					.toString());
+			newDuty = manager.create(Duty.class, dutyInformation);
 			newDuty.save();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -160,11 +148,11 @@ public class RosterSystem {
 
 	public static void addCapability(
 			HashMap<String, Object> capabilityInformation) {
-		Capabilities capability = null;
+		Capability capability = null;
 		Member[] member = null;
 		Duty[] duty = null;
 		try {
-			capability = manager.create(Capabilities.class);
+			capability = manager.create(Capability.class);
 			member = manager.find(Member.class, "name = ?",
 					capabilityInformation.get("memberName"));
 			duty = manager.find(Duty.class, "name = ?",
@@ -178,13 +166,13 @@ public class RosterSystem {
 		capability.save();
 	}
 
-	public static Capabilities[] findMemberCapabilities(
-			String memberName) {
+	public static Capability[] findMemberCapabilities(String memberName) {
 		Member[] member = null;
-		Capabilities[] capability = null;
+		Capability[] capability = null;
 		try {
 			member = manager.find(Member.class, "name = ?", memberName);
-			capability = manager.find(Capabilities.class, "Member_ID = ?", member[0].getID());
+			capability = manager.find(Capability.class, "Member_ID = ?",
+					member[0].getID());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -196,13 +184,15 @@ public class RosterSystem {
 			HashMap<String, Object> capabilityInformation) {
 		Member[] member = null;
 		Duty[] duty = null;
-		Capabilities[] capability = null;
+		Capability[] capability = null;
 		try {
 			member = manager.find(Member.class, "name = ?",
 					capabilityInformation.get("memberName"));
 			duty = manager.find(Duty.class, "name = ?",
 					capabilityInformation.get("dutyName"));
-			capability = manager.find(Capabilities.class, "Member_ID = ? and Duty_ID = ?", member[0].getID(), duty[0].getID());
+			capability = manager.find(Capability.class,
+					"Member_ID = ? and Duty_ID = ?", member[0].getID(),
+					duty[0].getID());
 			manager.delete(capability);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -210,16 +200,24 @@ public class RosterSystem {
 		}
 	}
 
-	public static Capabilities[] findDutyCapabilities(String dutyName) {
+	public static Capability[] findDutyCapabilities(String dutyName) {
 		Duty[] duty = null;
-		Capabilities[] capability = null;
+		Capability[] capability = null;
 		try {
 			duty = manager.find(Duty.class, "name = ?", dutyName);
-			capability = manager.find(Capabilities.class, "Duty_ID = ?", duty[0].getID());
+			capability = manager.find(Capability.class, "Duty_ID = ?",
+					duty[0].getID());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return capability;
 	}
+
+	/*
+	 * public static void migrateDatabase() { try {
+	 * manager.migrate(Member.class); manager.migrate(Duty.class);
+	 * manager.migrate(Capability.class); } catch (SQLException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } }
+	 */
 }
