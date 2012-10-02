@@ -1,4 +1,4 @@
-package rostersystem.models;
+package models;
 
 
 /**

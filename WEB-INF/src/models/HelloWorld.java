@@ -1,8 +1,8 @@
-package rostersystem.actions;
+package models;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class About extends ActionSupport {
+public class HelloWorld extends ActionSupport {
 	
 	private static final long serialVersionUID = 178603278604L;
 	public static final String MESSAGE = "Struts is up and running ...";
@@ -12,7 +12,7 @@ public class About extends ActionSupport {
 		return SUCCESS;
 	}
 
-	private String message = "Ok";
+	private String message;
 
 	public void setMessage(String message) {
 		this.message = message;

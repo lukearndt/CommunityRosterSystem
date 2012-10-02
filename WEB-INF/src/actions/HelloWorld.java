@@ -1,4 +1,4 @@
-package rostersystem.actions;
+package actions;
 
 import com.opensymphony.xwork2.ActionSupport; 
 
