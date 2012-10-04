@@ -1,9 +1,8 @@
 <html>
 <body>
-<ul>
-${action.}
-	<li></li>
-</ul>
-${action.cool}
+<h1>List of Members</h1>
+<#list memberDetails as Member>
+	 <li>${Member}</li>
+</#list>
 </body>
 </html

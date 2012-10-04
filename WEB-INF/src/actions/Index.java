@@ -1,5 +1,10 @@
 package actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import models.Member;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 public class Index extends ActionSupport {
@@ -20,6 +25,14 @@ public class Index extends ActionSupport {
 		message = "Hello World!";
 		return SUCCESS;
 	}
-	
-	
+
+	public List<String> getMemberDetails() {
+		List<String> myMemberList = new ArrayList<String>();
+		for(Member m : RosterSystem.getMemberList())
+		{
+			myMemberList.add(m.getName() + " " + m.getAddress());			
+		}
+		
+		return myMemberList; 
+	}
 }
