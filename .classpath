@@ -18,10 +18,10 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/struts2-convention-plugin-2.3.4.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/struts2-core-2.3.4.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/xwork-core-2.3.4.1.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.30/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.30/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.30/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.30/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.30/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

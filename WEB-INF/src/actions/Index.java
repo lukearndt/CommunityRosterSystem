@@ -20,4 +20,6 @@ public class Index extends ActionSupport {
 		message = "Hello World!";
 		return SUCCESS;
 	}
+	
+	
 }
