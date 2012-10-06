@@ -16,7 +16,7 @@ public class AddMember extends ActionSupport {
 	private String home_Phone;
 	private String mobile_Phone;
 	private String message;
-	private HashMap<String, Object> newMemberInformation;
+	private HashMap<String, Object> newMemberInformation = new HashMap<String, Object>();
 
 	public String execute() {
 		newMemberInformation.put("name", name);
@@ -26,8 +26,8 @@ public class AddMember extends ActionSupport {
 		newMemberInformation.put("postCode", postCode);
 		newMemberInformation.put("home_Phone", home_Phone);
 		newMemberInformation.put("mobile_Phone", mobile_Phone);
-		//setNewMember();
-		message = name + " has been added successfully " + newMemberInformation.containsKey("mobile_Phone");
+		setNewMember();
+		message = name + " has been added successfully";
 		return SUCCESS;
 	}
 
