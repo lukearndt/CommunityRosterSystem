@@ -5,7 +5,8 @@
 </head>
 <body>
 
-<h1>${action.message}</h1>
+<p>${action.message}</p>
 
+<a href="index">Return to Member Page</a>
 </body>
 </html>

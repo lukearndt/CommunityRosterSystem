@@ -5,6 +5,8 @@
 	 <li>${Member}</li>
 </#list>
 
+<br>
+<h1>Add a New Member</h1>
     <@s.form action="add-member">
         <@s.textfield label="Name" name="name"/>
         <@s.textfield label="Address" name="address"/>
