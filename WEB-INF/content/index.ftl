@@ -6,7 +6,13 @@
 </#list>
 
     <@s.form action="add-member">
-        <@s.textfield label="Name" name="userName"/>
+        <@s.textfield label="Name" name="name"/>
+        <@s.textfield label="Address" name="address"/>
+        <@s.textfield label="Suburb" name="suburb"/>
+        <@s.textfield label="State" name="state"/>
+        <@s.textfield label="Postcode" name="postCode"/>
+        <@s.textfield label="Home Phone" name="home_Phone"/>
+        <@s.textfield label="Mobile Phone" name="mobile_Phone"/>
         <@s.submit value="Save"/>
     </@s.form>
 
