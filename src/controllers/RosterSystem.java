@@ -7,7 +7,7 @@ import models.Duty;
 import models.Member;
 import net.java.ao.EntityManager;
 
-import views.Console;
+import views.Console_Spike7;
 
 /**
  * @author Luke Arndt & Deborah Harrington
@@ -24,7 +24,7 @@ public class RosterSystem {
 		manager = new EntityManager(DbDetails.DATABASE_URL,
 				DbDetails.USER_NAME, DbDetails.PASSWORD);
 		// Start up the console
-		Console myConsole = new Console();
+		Console_Spike7 myConsole = new Console_Spike7();
 	}
 
 	/**
@@ -213,11 +213,4 @@ public class RosterSystem {
 		}
 		return capability;
 	}
-
-	/*
-	 * public static void migrateDatabase() { try {
-	 * manager.migrate(Member.class); manager.migrate(Duty.class);
-	 * manager.migrate(Capability.class); } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } }
-	 */
 }
