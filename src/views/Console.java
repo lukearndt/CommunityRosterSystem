@@ -12,9 +12,7 @@ import controllers.RosterSystem;
 /**
  * @author Luke Arndt & Deborah Harrington
  * @date 20 September 2012
- * 
- * 
- * 
+
  */
 
 public class Console {

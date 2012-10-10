@@ -2,10 +2,14 @@ package controllers;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+
+import models.Book;
+import models.Book_Purchase;
 import models.Capability;
 import models.Duty;
 import models.Member;
 import net.java.ao.EntityManager;
+import net.java.ao.Transaction;
 
 import views.Console_Spike7;
 
@@ -212,5 +216,57 @@ public class RosterSystem {
 			e.printStackTrace();
 		}
 		return capability;
+	}
+
+	public static double updateBook(int bookID, int boughtQuantity)
+			throws SQLException{
+		double bookPrice = 0;
+		Book[] book = null;
+		book = manager.find(Book.class, "ID = ?", bookID);
+		book[0].setQuantity_On_Hand(book[0].getQuantity_On_Hand()
+				- boughtQuantity);
+		if (book[0].getQuantity_On_Hand() < 0) {
+			throw new SQLException();
+		}
+		bookPrice = book[0].getPrice();
+		book[0].save();
+		return bookPrice;
+	}
+
+	public static void updateMemberBalance(int memberID, double purchasesCost, int purchaseQty)
+			throws SQLException{
+		Member[] member = null;
+		member = manager.find(Member.class, "ID = ?", memberID);
+		member[0].setBalance(member[0].getBalance() - (purchasesCost * purchaseQty));
+		if (member[0].getBalance() < 0) {
+			throw new SQLException();
+		}
+		member[0].save();
+	}
+
+	public static void addBookPurchase(int bookID, int memberID, int quantity) throws SQLException{
+		Book_Purchase purchase = manager.create(Book_Purchase.class);
+		purchase.setBook_ID(bookID);
+		purchase.setMember_ID(memberID);
+		purchase.setQuantity_Purchased(quantity);
+		purchase.save();
+	}
+
+	public static String processMemberPurchases(final int memberID, final int bookID, final int purchaseQty) {
+		String result = "";
+		try {
+			new Transaction<Object>(manager) {
+				public Object run() throws SQLException {
+					Double bookPrice = updateBook(bookID, purchaseQty);
+					updateMemberBalance(memberID, bookPrice, purchaseQty);
+					addBookPurchase(bookID, memberID, purchaseQty);
+					return null;
+				}
+			}.execute();
+			result = "transaction was successfully completed";
+		} catch (SQLException e) {
+			result = "transaction was unable to be completed";
+		}
+		return result;
 	}
 }

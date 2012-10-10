@@ -8,4 +8,7 @@ public interface Book_Purchase extends Entity {
 	
 	public int getBook_ID();
 	public void setBook_ID(int book_ID);
+	
+	public int getQuantity_Purchased();
+	public void setQuantity_Purchased(int quantity_Purchased);
 }
