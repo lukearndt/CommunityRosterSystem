@@ -33,7 +33,6 @@ public class RosterSystem extends ActionSupport {
 			newMember = manager.create(Member.class, memberInformation);
 			newMember.save();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -44,21 +43,23 @@ public class RosterSystem extends ActionSupport {
 		try {
 			member = manager.find(Member.class, "name = ?", name);
 			for (int i = 0; i < member.length; i++) {
-				member[i].setName(memberInformation.get("Name").toString());
+				member[i].setName(memberInformation.get("name").toString());
 				member[i].setAddress(memberInformation.get("address")
 						.toString());
 				member[i].setSuburb(memberInformation.get("suburb").toString());
 				member[i].setState(memberInformation.get("state").toString());
-				member[i].setPostCode(memberInformation.get("postcode")
+				member[i].setPostCode(memberInformation.get("postCode")
 						.toString());
 				member[i].setHome_Phone(memberInformation.get("home_Phone")
 						.toString());
 				member[i].setMobile_Phone(memberInformation.get("mobile_Phone")
 						.toString());
 				member[i].save();
+				System.out.println("the update should have worked, I think.");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			System.out.println("The update failed :(");
 			e.printStackTrace();
 		}
 	}
@@ -104,7 +105,7 @@ public class RosterSystem extends ActionSupport {
 		try {
 			duty = manager.find(Duty.class, "name = ?", name);
 			for (int i = 0; i < duty.length; i++) {
-				duty[i].setName(dutyInformation.get("Name").toString());
+				duty[i].setName(dutyInformation.get("name").toString());
 				duty[i].setDescription(dutyInformation.get("description")
 						.toString());
 				duty[i].save();
@@ -116,15 +117,10 @@ public class RosterSystem extends ActionSupport {
 	}
 
 	public static void deleteDuty(String dutyToDelete) {
-		// Duty duty = findDutyByName(dutyToDelete);
-		// duty.delete();
-
-		Duty[] duty;
+		Duty duty;
 		try {
-			duty = manager.find(Duty.class, "name = ?", dutyToDelete);
-			for (int i = 0; i < duty.length; i++) {
-				manager.delete(duty[i]);
-			}
+			duty = findDuty(dutyToDelete);
+			manager.delete(duty);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,20 +139,15 @@ public class RosterSystem extends ActionSupport {
 	}
 
 	public static void addCapability(
-			HashMap<String, Object> capabilityInformation) {
+			HashMap<String, Object> capabilityInformation) throws SQLException {
 		Capability capability = null;
 		Member[] member = null;
 		Duty[] duty = null;
-		try {
-			capability = manager.create(Capability.class);
-			member = manager.find(Member.class, "name = ?",
-					capabilityInformation.get("memberName"));
-			duty = manager.find(Duty.class, "name = ?",
-					capabilityInformation.get("dutyName"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		capability = manager.create(Capability.class);
+		member = manager.find(Member.class, "name = ?",
+				capabilityInformation.get("memberName"));
+		duty = manager.find(Duty.class, "name = ?",
+				capabilityInformation.get("dutyName"));
 		capability.setDuty_ID(duty[0].getID());
 		capability.setMember_ID(member[0].getID());
 		capability.save();
@@ -197,23 +188,45 @@ public class RosterSystem extends ActionSupport {
 	}
 
 	public static Capability[] findDutyCapabilities(String dutyName) {
-		Duty[] duty = null;
+		Duty duty = null;
 		Capability[] capability = null;
 		try {
-			duty = manager.find(Duty.class, "name = ?", dutyName);
+			duty = findDuty(dutyName);
 			capability = manager.find(Capability.class, "Duty_ID = ?",
-					duty[0].getID());
+					duty.getID());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return capability;
 	}
 
-	/*
-	 * public static void migrateDatabase() { try {
-	 * manager.migrate(Member.class); manager.migrate(Duty.class);
-	 * manager.migrate(Capability.class); } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } }
-	 */
+	public static Duty findDuty(String dutyName) {
+		Duty[] duty = null;
+		try {
+			duty = manager.find(Duty.class, "name = ?", dutyName);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return duty[0];
+	}
+
+	public static Duty findDutyByID(int dutyID) {
+		Duty[] duty = null;
+		try {
+			duty = manager.find(Duty.class, "ID = ?", dutyID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return duty[0];
+	}
+
+	public static Member findMemberByID(int member_ID) {
+		Member[] member = null;
+		try {
+			member = manager.find(Member.class, "ID = ?", member_ID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return member[0];
+	}
 }

@@ -15,8 +15,8 @@
 						
 						<!-- Nav -->
 							<nav>
-								<!--<a href="index.html">Homepage</a>-->
-								<a href="member-management">Member Management</a>
+								<a href="index">Homepage</a>
+								<!--<a href="member-management">Member Management</a>-->
 								<a href="duty-management">Duty Management</a>
 								<a href="capability-management">Capability Management</a>
 							</nav>
@@ -24,32 +24,70 @@
 					</div>
 				</header>
 			</div>
-			
-			<!-- Content -->
+
+		<!-- Content -->
 			<div id="content-wrapper">
 				<div id="content">
 					<div class="5grid">
-						<div class="12u-first">
-						
+						<div class="9u-first">
+							
 							<!-- Main Content -->
 								<section>
-									<header>
-										<h2>Duty Roster Management System</h2>
-									</header>
-										<p>Welcome to the Community Roster System Home page. This is the 
-										administrator section of the site, where you can manage
-										members, duties, and their capabilities.</p>
-										<p><a href="member-management">Member Management</a></p>
-										<p><a href="duty-management">Duty Management</a></p>
-										<p><a href="capability-management">Capability Management</a></p>
+										<h2>Add a New Member</h2>
+									<br>
+    									<@s.form action="add-member">
+        									<@s.textfield label="Name" name="name"/>
+        									<@s.textfield label="Address" name="address"/>
+        									<@s.textfield label="Suburb" name="suburb"/>
+        									<@s.textfield label="State" name="state"/>
+        									<@s.textfield label="Postcode" name="postCode"/>
+        									<@s.textfield label="Home Phone" name="home_Phone"/>
+        									<@s.textfield label="Mobile Phone" name="mobile_Phone"/>
+        									<@s.submit value="Save"/>
+    									</@s.form><br>
+    								<h2>Update a Member</h2>
+    								<br>
+    								    <@s.form action="update-member">
+        									<@s.textfield label="Name" name="name"/>
+        									<@s.textfield label="Address" name="address"/>
+        									<@s.textfield label="Suburb" name="suburb"/>
+        									<@s.textfield label="State" name="state"/>
+        									<@s.textfield label="Postcode" name="postCode"/>
+        									<@s.textfield label="Home Phone" name="home_Phone"/>
+        									<@s.textfield label="Mobile Phone" name="mobile_Phone"/>
+        									<@s.submit value="Save"/>
+    									</@s.form><br>
+									<h2>Delete a Member</h2>
+									    <@s.form action="delete-member">
+        									<@s.textfield label="Name of Member to Delete " name="name"/>
+        									<@s.submit value="Delete"/>
+        								</@s.form>
+									<br>
+									<h2>Get Capabilities for a Member</h2>
+										<@s.form action="member-capabilities">
+        									<@s.textfield label="Name of Member " name="name"/>
+        									<@s.submit value="Get Capabilities"/>
+        								</@s.form>
 								</section>
-
+						</div>
+						<div class="3u">
+							
+							<!-- Sidebar -->
+								<section>
+									<header>
+										<h2>List of Members</h2>
+									</header>
+									
+									<#list memberDetails as Member>
+	 									<li>${Member}</li>
+									</#list>
+								</section>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<!-- Footer -->
+
+		<!-- Footer -->
 			<div id="footer-wrapper">
 				<footer id="footer" class="5grid">
 					<div class="8u-first">

@@ -1,5 +1,7 @@
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Member Added</title>
 	<!--5grid--><script src="http://localhost:8080/CommunityRosterSystem/css/5grid/viewport.js"></script><!--[if lt IE 9]><script src="css/5grid/ie.js"></script><![endif]--><link rel="stylesheet" href="http://localhost:8080/CommunityRosterSystem/css/5grid/responsive.css" /><!--/5grid-->
 	<link rel="stylesheet" href="http://localhost:8080/CommunityRosterSystem/css/style.css" />
 </head>
@@ -15,8 +17,8 @@
 						
 						<!-- Nav -->
 							<nav>
-								<!--<a href="index.html">Homepage</a>-->
-								<a href="member-management">Member Management</a>
+								<a href="index">Homepage</a>
+								<!--<a href="member-management">Member Management</a>-->
 								<a href="duty-management">Duty Management</a>
 								<a href="capability-management">Capability Management</a>
 							</nav>
@@ -24,8 +26,8 @@
 					</div>
 				</header>
 			</div>
-			
-			<!-- Content -->
+
+<!-- Content -->
 			<div id="content-wrapper">
 				<div id="content">
 					<div class="5grid">
@@ -34,14 +36,9 @@
 							<!-- Main Content -->
 								<section>
 									<header>
-										<h2>Duty Roster Management System</h2>
+										<h2>${action.message}</h2>
+										<h3><a href="capability-management">Return to Capability Page</a></h3>
 									</header>
-										<p>Welcome to the Community Roster System Home page. This is the 
-										administrator section of the site, where you can manage
-										members, duties, and their capabilities.</p>
-										<p><a href="member-management">Member Management</a></p>
-										<p><a href="duty-management">Duty Management</a></p>
-										<p><a href="capability-management">Capability Management</a></p>
 								</section>
 
 						</div>

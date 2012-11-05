@@ -15,41 +15,45 @@
 						
 						<!-- Nav -->
 							<nav>
-								<!--<a href="index.html">Homepage</a>-->
+								<a href="index">Homepage</a>
 								<a href="member-management">Member Management</a>
 								<a href="duty-management">Duty Management</a>
-								<a href="capability-management">Capability Management</a>
+								<!--<a href="capabilityManagement">Capability Management</a>-->
 							</nav>
 
 					</div>
 				</header>
 			</div>
 			
-			<!-- Content -->
+		<!-- Content -->
 			<div id="content-wrapper">
 				<div id="content">
 					<div class="5grid">
 						<div class="12u-first">
-						
+							
 							<!-- Main Content -->
 								<section>
-									<header>
-										<h2>Duty Roster Management System</h2>
-									</header>
-										<p>Welcome to the Community Roster System Home page. This is the 
-										administrator section of the site, where you can manage
-										members, duties, and their capabilities.</p>
-										<p><a href="member-management">Member Management</a></p>
-										<p><a href="duty-management">Duty Management</a></p>
-										<p><a href="capability-management">Capability Management</a></p>
+										<h2>Add a Capability</h2>
+									<br>
+    									<@s.form action="add-capability">
+        									<@s.textfield label="Member Name" name="memberName"/>
+        									<@s.textfield label="Duty Name" name="dutyName"/>
+        									<@s.submit value="Save"/>
+    									</@s.form><br>
+    								<h2>Delete a Capability</h2>
+    								<br>
+    								    <@s.form action="delete-capability">
+        									<@s.textfield label="Member Name" name="memberName"/>
+        									<@s.textfield label="Duty Name" name="dutyName"/>
+        									<@s.submit value="Delete"/>
+    									</@s.form><br>
 								</section>
-
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<!-- Footer -->
+			</div >
+
+		<!-- Footer -->
 			<div id="footer-wrapper">
 				<footer id="footer" class="5grid">
 					<div class="8u-first">
@@ -93,5 +97,9 @@
 					</div>
 				</footer>
 			</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

@@ -1,13 +1,14 @@
 package actions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import models.Member;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class Index extends ActionSupport {
+public class CapabilityManagement extends ActionSupport {
 
 	private static final long serialVersionUID = 8509078543326488295L;
 	private String message;

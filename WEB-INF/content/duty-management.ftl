@@ -15,41 +15,69 @@
 						
 						<!-- Nav -->
 							<nav>
-								<!--<a href="index.html">Homepage</a>-->
+								<a href="index">Homepage</a>
 								<a href="member-management">Member Management</a>
-								<a href="duty-management">Duty Management</a>
+								<!--<a href="duty-management">Duty Management</a>-->
 								<a href="capability-management">Capability Management</a>
 							</nav>
 
 					</div>
 				</header>
 			</div>
-			
-			<!-- Content -->
+
+		<!-- Content -->
 			<div id="content-wrapper">
 				<div id="content">
 					<div class="5grid">
-						<div class="12u-first">
-						
+						<div class="9u-first">
+							
 							<!-- Main Content -->
 								<section>
-									<header>
-										<h2>Duty Roster Management System</h2>
-									</header>
-										<p>Welcome to the Community Roster System Home page. This is the 
-										administrator section of the site, where you can manage
-										members, duties, and their capabilities.</p>
-										<p><a href="member-management">Member Management</a></p>
-										<p><a href="duty-management">Duty Management</a></p>
-										<p><a href="capability-management">Capability Management</a></p>
+										<h2>Add a New Duty</h2>
+									<br>
+    									<@s.form action="add-duty">
+        									<@s.textfield label="Name" name="name"/>
+        									<@s.textfield label="Description" name="description"/>
+        									<@s.submit value="Save"/>
+    									</@s.form><br>
+    								<h2>Update a Duty</h2>
+    								<br> 
+    								    <@s.form action="update-duty">
+        									<@s.textfield label="Name" name="name"/>
+        									<@s.textfield label="Description" name="description"/>
+        									<@s.submit value="Update"/>
+    									</@s.form><br>
+									<h2>Delete a Duty</h2>
+									    <@s.form action="delete-duty">
+        									<@s.textfield label="Name of Duty to Delete " name="name"/>
+        									<@s.submit value="Delete"/>
+        								</@s.form>
+									<br>
+									<h2>Get List of Members Who Perform This Duty</h2>
+										<@s.form action="duty-capabilities">
+        									<@s.textfield label="Name of Duty " name="name"/>
+        									<@s.submit value="Get Capabilities"/>
+        								</@s.form>
 								</section>
-
+						</div>
+						<div class="3u">
+							
+							<!-- Sidebar -->
+								<section>
+									<header>
+										<h2>List of Duties</h2>
+									</header>
+									
+									<#list dutyDetails as Duty>
+	 									<li>${Duty}</li>
+									</#list>
+								</section>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<!-- Footer -->
+
+		<!-- Footer -->
 			<div id="footer-wrapper">
 				<footer id="footer" class="5grid">
 					<div class="8u-first">
