@@ -34,16 +34,27 @@
 							<!-- Main Content -->
 								<section>
 									<header>
-										<h2>Duty Roster Management System</h2>
+										<h2>Duty Roster Management System - Administration Section</h2>
 									</header>
 										<p>Welcome to the Community Roster System Home page. This is the 
 										administrator section of the site, where you can manage
 										members, duties, and their capabilities.</p>
-										<p><a href="member-management">Member Management</a></p>
-										<p><a href="duty-management">Duty Management</a></p>
-										<p><a href="capability-management">Capability Management</a></p>
-								</section>
+										<p><a href="member-management">Member Management</a><br/>
+										<a href="duty-management">Duty Management</a><br>
+										<a href="capability-management">Capability Management</a></p>
 
+									<header>
+										<h2>Duty Roster Management System - Member Section</h2>
+									</header>
+										<p>Welcome to the Community Roster System Home page. This is the 
+										member section of the site, where you can advise the administrator of your availability
+										for the forthcoming roster that is to be produced.</p>
+										<@s.form action="login-member">
+        									<@s.textfield label="Your email address " name="email"/>
+        									<@s.textfield label="Your password " name="password"/>
+        									<@s.submit value="Login"/>
+        								</@s.form>
+								</section>
 						</div>
 					</div>
 				</div>

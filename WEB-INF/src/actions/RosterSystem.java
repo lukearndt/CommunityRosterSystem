@@ -229,4 +229,17 @@ public class RosterSystem extends ActionSupport {
 		}
 		return member[0];
 	}
+
+	public static boolean checkLogin(String email, String password) {
+		Member [] member = null;
+		try {
+			member = manager.find(Member.class, "email = ?", email);
+			if (member[0].getPassword().compareTo(password)==0) {
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

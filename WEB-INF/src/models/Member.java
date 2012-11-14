@@ -33,6 +33,12 @@ public interface Member extends Entity {
 	public String getMobile_Phone();
 	public void setMobile_Phone(String mobile_Phone);
 	
+	public String getEmail();
+	public void setEmail(String email);
+	
+	public String getPassword();
+	public void setPassword(String password);
+	
 	@OneToMany
 	public Capability[] getCapabilities();
 }
