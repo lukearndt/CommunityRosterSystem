@@ -43,6 +43,8 @@
         									<@s.textfield label="Postcode" name="postCode"/>
         									<@s.textfield label="Home Phone" name="home_Phone"/>
         									<@s.textfield label="Mobile Phone" name="mobile_Phone"/>
+        									<@s.textfield label="Email" name="email"/>
+        									<@s.textfield label="Password" name="password"/>
         									<@s.submit value="Save"/>
     									</@s.form><br>
     								<h2>Update a Member</h2>
@@ -55,7 +57,8 @@
         									<@s.textfield label="Postcode" name="postCode"/>
         									<@s.textfield label="Home Phone" name="home_Phone"/>
         									<@s.textfield label="Mobile Phone" name="mobile_Phone"/>
-        									<@s.submit value="Save"/>
+        									<@s.textfield label="Email" name="email"/>
+        									<@s.textfield label="Password" name="password"/>        									<@s.submit value="Save"/>
     									</@s.form><br>
 									<h2>Delete a Member</h2>
 									    <@s.form action="delete-member">
